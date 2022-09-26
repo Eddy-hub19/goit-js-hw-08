@@ -1,18 +1,22 @@
 // Add imports above this line
-// import { galleryItems } from './gallery-items';
+import { galleryItems } from './gallery-items';
 // Описан в документации
-// import SimpleLightbox from "simplelightbox";
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.css';
 // Дополнительный импорт стилей
-// import "simplelightbox/dist/simple-lightbox.min.css";
-// Change code below this line
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
-console.log(galleryItems);
+const galleryRef = document.querySelector('.gallery');
 
+const listItem = galleryItems.map(item => {
+  return `<a class="gallery__item" href="${item.original}">
+    <img class="gallery__image" src="${item.preview}" alt="${item.description}" />
+  </a>`;
+});
 
-// Задание 1 - библиотека SimpleLightbox
-// Выполняй это задание в файлах 01-gallery.html и 01-gallery.js. Разбей его на несколько подзадач:
+galleryRef.insertAdjacentHTML('afterbegin', listItem.join(' '));
 
-// Добавь библиотеку SimpleLightbox как зависимость проекта используя npm (ссылка на CDN из твоей прошлой работы больше не нужна).
-// Используй свой JavaScript код из предыдущей домашней работы, но выполни рефакторинг с учетом того, что библиотека была установлена через npm (синтаксис import/export).
-// Для того чтобы подключить CSS код библиотеки в проект, необходимо добавить еще один импорт, кроме того который описан в документации.
-
+new SimpleLightbox('.gallery a', {
+  captionDelay: 250,
+  captionsData: 'alt',
+});
